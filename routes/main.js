@@ -26,4 +26,20 @@ router.post('/add-product', function(req, res, next) {
   })
 })
 
+router.get('/generate-fake-data', function(req, res, next){
+  for(var i = 0; i < 100; i++){
+    var product = new Product()
+
+    product.category = faker.commerce.department()
+    product.name = faker.commerce.productName()
+    product.price = faker.commerce.price()
+    product.cover = faker.image.image()
+    
+    product.save(function(err) {
+          if (err) throw err
+     })
+  }
+  res.redirect('/add-product')
+})
+
 module.exports = router;
